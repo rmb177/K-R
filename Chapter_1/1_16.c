@@ -4,12 +4,14 @@
 
 int GetLine(char line[], int maxline);
 
-/* print longest input line */
+
+/**
+ * Print out up to 999 characters of each line along with its length
+ */
 main()
 {
    int len;
    char line[MAXLINE];
-   char longest[MAXLINE];
    
    int max = 0;
    while ((len = GetLine(line, MAXLINE)) > 0)
@@ -29,17 +31,23 @@ int GetLine(char s[], int lim)
    int c;
    int i;
    
-   for (i = 0; i < lim - 1 && (c = getchar()) != EOF && c != '\n'; ++i)
+   for (i = 0; (c = getchar()) != EOF && c != '\n'; ++i)
    {
-      s[i] = c;
+      if (i < lim - 1)
+      {
+         s[i] = c;
+      }
    }
    
-   if (c == '\n')
+   if (i < lim - 1)
    {
-      s[i] = c;
-      ++i;
+      s[i] = '\0';
    }
-   s[i] = '\0';
+   else 
+   {
+      s[lim - 1] = '\0';
+   }
+
    return i;
 }
 

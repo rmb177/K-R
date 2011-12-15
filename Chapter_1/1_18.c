@@ -4,19 +4,21 @@
 
 int GetLine(char line[], int maxline);
 
-/* print longest input line */
+/**
+ * Strip trailing blanks and tabs from each line and then
+ * output only those lines that are not blank.
+ */
 main()
 {
    int len;
    char line[MAXLINE];
-   char longest[MAXLINE];
    
    int max = 0;
-   while ((len = GetLine(line, MAXLINE)) > -1)
+   while ((len = GetLineWithoutTrailingWhitespace(line, MAXLINE)) > -1)
    {
       if (len > 0)
       {
-         printf("%s", line)
+         printf("%s\n\n", line);
       }
    }
    return 0;
@@ -24,26 +26,45 @@ main()
 
 /**
  * Read a line into s and return length
- */ 
-int GetLine(char s[], int lim)
+ */  
+int GetLineWithoutTrailingWhitespace(char s[], int lim)
 {
    int c;
-   int i = 0;
+   int i;
    
-   for (i = 0; i < lim - 1 && (c = getchar()) != EOF && c != '\n'; ++i)
+   /* There was a bug in original K&R code, need to save two spaces for */
+   /* new line and null character */
+   for (i = 0; i < lim - 2 && (c = getchar()) != EOF && c != '\n'; ++i)
    {
       s[i] = c;
    }
    
-   if (0 == i && c == EOF)
-   {
-      i = -1
-   }
-   else if (c == '\n')
+   if (c == '\n')
    {
       s[i] = c;
       ++i;
-      s[i] = '\0';
    }
-   return i;
+   s[i] = '\0';
+   
+   /* Now strip away trailing spaces, newlines and tabs */
+   /* Skip over null character */
+   int newLastIndex = i;
+   int foundNonWhitespaceChar = 0;
+   i -= 1;
+   
+   while (i >= 0 && !foundNonWhitespaceChar)
+   {
+      if ('\n' == s[i] || ' ' == s[i] || '\t' == s[i])
+      {
+         newLastIndex = i;
+         i -= 1;
+      }
+      else 
+      {
+         foundNonWhitespaceChar = 1;
+      }
+   }
+   
+   s[newLastIndex] = '\0';
+   return newLastIndex;
 }

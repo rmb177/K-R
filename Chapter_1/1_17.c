@@ -1,20 +1,21 @@
 #include <stdio.h>
 
 #define MAXLINE 1000	/* maximum line size */
-
+#define MIN_LINE_LENGTH 80
 int GetLine(char line[], int maxline);
 
-/* print longest input line */
+/**
+ * Print all lines longer than 80 characters
+ s*/
 main()
 {
    int len;
    char line[MAXLINE];
-   char longest[MAXLINE];
    
    int max = 0;
    while ((len = GetLine(line, MAXLINE)) > 0)
    {
-      if(len > 80)
+      if(len > MIN_LINE_LENGTH)
       {
          printf("Line: %s\n\n", line);
       }
@@ -30,7 +31,9 @@ int GetLine(char s[], int lim)
    int c;
    int i;
    
-   for (i = 0; i < lim - 1 && (c = getchar()) != EOF && c != '\n'; ++i)
+   /* There was a bug in original K&R code, need to save two spaces for */
+   /* new line and null character */
+   for (i = 0; i < lim - 2 && (c = getchar()) != EOF && c != '\n'; ++i)
    {
       s[i] = c;
    }

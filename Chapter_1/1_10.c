@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 /**
-* Output users input replacing all tabs as "\t" all backspaces as "\b"
+* Output user's input replacing all tabs as "\t" all backspaces as "\b"
 * and all backslashes by "\\".
 */
 

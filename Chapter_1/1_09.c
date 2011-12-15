@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 /**
-* Output users input replacing all consecutive spaces with a single space
+* Output user's input replacing all consecutive spaces with a single space
 */
 
 main()
