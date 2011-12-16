@@ -2,7 +2,7 @@
 
 #define MAXLINE 1000	/* maximum line size */
 
-int GetLine(char line[], int maxline);
+int GetLineWithoutTrailingWhitespace(char line[], int maxline);
 
 /**
  * Strip trailing blanks and tabs from each line and then
@@ -14,7 +14,7 @@ main()
    char line[MAXLINE];
    
    int max = 0;
-   while ((len = GetLineWithoutTrailingWhitespace(line, MAXLINE)) > -1)
+   while ((len = GetLineWithoutTrailingWhitespace(line, MAXLINE)) >= 0)
    {
       if (len > 0)
       {
@@ -25,7 +25,8 @@ main()
 }
 
 /**
- * Read a line into s and return length
+ * Read a line, stripped of all trailing whitespace,
+ * into s and return length
  */  
 int GetLineWithoutTrailingWhitespace(char s[], int lim)
 {

@@ -36,11 +36,7 @@ int GetLine(char s[], int lim)
    }
    s[i] = '\0';
 
-   /* Don't need to reverse empty strings or strings with 1 character */
-   if (i > 1)
-   {
-      ReverseLine(s, i);
-   }
+   ReverseLine(s, i);
    return i;
 }
 
@@ -50,15 +46,17 @@ int GetLine(char s[], int lim)
  */
 void ReverseLine(char line[], int length)
 {
-   printf("%d\n", length);
-   int startIndex = 0;
-   int endIndex = length - 1;
-
-   while (startIndex < endIndex)
+   if (length > 1)
    {
-      char temp = line[startIndex];
-      line[startIndex++] = line[endIndex];
-      line[endIndex--]  = temp;
+      int startIndex = 0;
+      int endIndex = length - 1;
+
+      while (startIndex < endIndex)
+      {
+         char temp = line[startIndex];
+         line[startIndex++] = line[endIndex];
+         line[endIndex--]  = temp;
+      }
    }
 }
 
